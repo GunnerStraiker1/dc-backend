@@ -32,3 +32,17 @@ Create the following variables in .env file:
 
 	JWT_KEY="yoursecretkey"
 ```
+
+### Observations
+
+It's necessary login to get the token, ALL requests need `Content-Type: application/json` in headers
+All POST, PUT and DELETE requests are requested only by Professor
+All requests that have student inside the url, only can be accessed by Students
+
+Credentials:
+* Student
+email: victor@email.com
+password: "password1"
+* Professor
+email: professor@email.com
+password: "12345"
