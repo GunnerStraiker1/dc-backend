@@ -11,8 +11,6 @@ class UserStore{
 
             const courseId = courseInfo.courseId
             const lessons = courseInfo.lessons
-            console.log(lessonInfo.lessonNumber)
-            console.log(lessons.length)
 
             if(courseId === userInfo.actualCourse){
                 if(lessonInfo.lessonNumber === userInfo.actualLesson){
@@ -21,7 +19,16 @@ class UserStore{
                     }
                     else{
                         const courseInfo2 = await Course.findOne({previousCourse: courseId}).exec()
-                        updated = await User.updateOne({userId: userId}, {$set : {"actualLesson" : 1, "actualCourse" : courseInfo2.courseId }})
+                        updated = await User.updateOne({userId: userId}, 
+                            {$set : 
+                                {
+                                    "actualLesson" : 1, "actualCourse" : courseInfo2.courseId
+                                }
+                            },
+                            {$addToSet:{
+                                'approvedCourses' : courseId
+                            } }
+                            )
                     }
                     return updated
                 }

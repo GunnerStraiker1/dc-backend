@@ -142,7 +142,7 @@ router.put(
  *        in: path
  *        description: Course's id from the desired group, it's not the _id
  *        required: true
- *        example: "Q1"
+ *        example: "C1"
  *    responses:
  *     "200":
  *      description: "Successful Delete"
@@ -199,7 +199,8 @@ router.delete(
  *             data: 
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Course'
+ *                 type: object
+ *                 example: {"_id": "5f0b97ccc940fe4d9470bf37","courseId": "C1","name": "Math Basics","numberCourse": 1,"previousCourse": "","professor": 18000968,"__v": 0,"studentAccess": false}
  *     "401":
  *       $ref: '#/components/responses/UnauthorizedError'
  *     "500":
@@ -222,11 +223,11 @@ router.get(
  *    security:
  *     -bearerAuth: []
  *    parameters:
- *      - name: questionId
+ *      - name: courseId
  *        in: path
- *        description: Question's id from the desired group, it's not the _id
+ *        description: Course's id from the desired group, it's not the _id
  *        required: true
- *        example: "Q1"
+ *        example: "C1"
  *    responses:
  *     "200":
  *      description: "Successful Query"
@@ -244,7 +245,8 @@ router.get(
  *             data: 
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Course'
+ *                 type: object
+ *                 example: {"_id": "5f0ca32dc124b45010ced18e","lessonId": "L2","name": "Math Basic 2","lessonNumber": 2,"previousLesson": "L1","studentAccess": true}
  *     "401":
  *       $ref: '#/components/responses/UnauthorizedError'
  *     "500":

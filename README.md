@@ -20,7 +20,6 @@ Create the following variables in .env file:
 
 ```
     DB_LOCATION= remote 
-	//remote
 	DB_HOST=dc-courses.qslbq.mongodb.net
 	//host: localhost
 	DB_PORT=27017
