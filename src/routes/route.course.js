@@ -8,6 +8,13 @@ const authorizeRoles = require("../helpers/validations/rolesValidation");
 const { role } = require("../helpers/enums");
 
 
+router.get(
+    "/",
+    authenticateJWT,
+    authorizeRoles(role.Professor),
+    CourseController.getAllCourses
+);
+
 router.post(
     "/",
     authenticateJWT,
@@ -15,6 +22,21 @@ router.post(
     contentTypeValidation,
     fieldsInBodyValidation("courseId", "name", "numberCourse", "professor", "lessons"),
     CourseController.createCourse
+);
+
+router.put(
+    "/:courseId",
+    authenticateJWT,
+    authorizeRoles(role.Professor),
+    contentTypeValidation,
+    CourseController.updateCourse
+);
+
+router.delete(
+    "/:courseId",
+    authenticateJWT,
+    authorizeRoles(role.Professor),
+    CourseController.deleteCourse
 );
 
 router.get(

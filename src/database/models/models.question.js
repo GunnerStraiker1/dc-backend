@@ -7,7 +7,7 @@ const { answerTypeTypes } = require("../../helpers/enums");
  *   schemas:
  *     Question:
  *       type: "object"
- *       required: [questionId, textQuestion, score, answerType]
+ *       required: [questionId, textQuestion, score, answerType, correctAnswers, wrongAnswers]
  *       properties:
  *         questionId:
  *           type: String
@@ -62,14 +62,16 @@ const questionSchema = mongoose.Schema({
             {
                 type: String
             }
-        ]
+        ],
+        required: true
     },
     wrongAnswers:{
         type:[
             {
                 type: String
             }
-        ]
+        ],
+        required: true
     }
 })
 

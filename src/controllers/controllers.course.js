@@ -100,6 +100,80 @@ class CourseController {
             return next(new ErrorHandler(ErrorTypes.DATABASE_ERROR, error));
         }
     }
+
+    /**
+     * 
+     * @param {Express.Request} req 
+     * @param {Express.Response} res 
+     * @param {Function} next 
+     */
+    static async getAllCourses(req, res, next) {
+        try {
+            const courses = await CourseStore.getAllCourses()
+            return handleSuccess(new SuccessHandler(SuccessType.GENERAL_SUCCESS, courses), res);
+        } catch (error) {
+            return next(new ErrorHandler(ErrorTypes.DATABASE_ERROR, error));
+        }
+    }
+
+    /**
+     * 
+     * @param {Express.Request} req 
+     * @param {Express.Response} res 
+     * @param {Function} next 
+     */
+    static async updateCourse(req, res, next){
+        try {
+
+            const courseId = req.params.courseId
+
+            //Check if the course exist
+            const exist = await Course.exists({courseId: courseId})
+            if(!exist){
+                return next(new ErrorHandler(ErrorTypes.INVALID_ID,"courseId", questionId))
+            }
+        } catch (error) {
+            return next(new ErrorHandler(ErrorTypes.DATABASE_ERROR, error));
+        }
+
+        //Insertion in DB
+        let courseChanges = req.body
+
+        try {
+            const courseUpdated = await CourseStore.updateCourses(courseId, courseChanges)
+            return handleSuccess(new SuccessHandler(SuccessType.CREATION, courseUpdated), res);
+        } catch (error) {
+            return next(new ErrorHandler(ErrorTypes.DATABASE_ERROR, error));
+        }
+    }
+
+    /**
+     * 
+     * @param {Express.Request} req 
+     * @param {Express.Response} res 
+     * @param {Function} next 
+     */
+    static async deleteCourse(req, res, next){
+        try {
+
+            const courseId = req.params.courseId
+
+            //Check if the course exist
+            const exist = await Course.exists({courseId: courseId})
+            if(!exist){
+                return next(new ErrorHandler(ErrorTypes.INVALID_ID,"courseId", courseId))
+            }
+        } catch (error) {
+            return next(new ErrorHandler(ErrorTypes.DATABASE_ERROR, error));
+        }
+
+        try {
+            const courseDelete = await CourseStore.deleteQuestion(courseId)
+            return handleSuccess(new SuccessHandler(SuccessType.CREATION, courseDelete), res);
+        } catch (error) {
+            return next(new ErrorHandler(ErrorTypes.DATABASE_ERROR, error));
+        }
+    }
     
 }
 

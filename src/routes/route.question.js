@@ -1,17 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const LessonController = require("../controllers/controllers.lesson");
+const QuestionController = require("../controllers/controllers.question");
 const contentTypeValidation = require("../helpers/validations/contentTypeValidation");
 const fieldsInBodyValidation = require("../helpers/validations/bodyValidation");
 const authenticateJWT = require("../helpers/validations/JWTValidation");
 const authorizeRoles = require("../helpers/validations/rolesValidation");
-const { role } = require("../helpers/enums");
 
 router.get(
     "/",
     authenticateJWT,
     authorizeRoles(role.Professor),
-    LessonController.getAllLessons
+    QuestionController.getAllQuestions
 );
 
 router.post(
@@ -19,8 +18,8 @@ router.post(
     authenticateJWT,
     authorizeRoles(role.Professor),
     contentTypeValidation,
-    fieldsInBodyValidation("lessonId", "name", "lessonNumber", "approvalScore", "questions"),
-    LessonController.createLesson
+    fieldsInBodyValidation("questionId", "textQuestion", "score", "answerType", "correctAnswers", "wrongAnswers"),
+    QuestionController.createQuestion
 );
 
 router.put(
@@ -28,29 +27,14 @@ router.put(
     authenticateJWT,
     authorizeRoles(role.Professor),
     contentTypeValidation,
-    LessonController.updateLesson
+    QuestionController.updateQuestion
 );
 
 router.delete(
     "/:lessonId",
     authenticateJWT,
     authorizeRoles(role.Professor),
-    LessonController.deleteLesson
-);
-
-router.get(
-    "/details/:lessonId",
-    authenticateJWT,
-    authorizeRoles(role.Student),
-    LessonController.getLessonDetails
-);
-
-router.patch(
-    "/take/:lessonId",
-    authenticateJWT,
-    authorizeRoles(role.Student),
-    contentTypeValidation,
-    LessonController.takeLesson
+    QuestionController.deleteQuestion
 );
 
 module.exports = router

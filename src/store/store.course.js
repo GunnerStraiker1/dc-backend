@@ -17,6 +17,45 @@ class CourseStore {
 
     /**
      * 
+     */
+    static async getAllCourses(){
+        try {
+            const courses = await Course.find().exec()
+            return courses
+        } catch (error) {
+            return error
+        }
+    }
+
+   /**
+    * 
+    * @param {String} courseId 
+    * @param {JSON} course 
+    */
+    static async updateCourses(courseId, lesson){
+        try {
+            const updated = await Course.findOneAndUpdate({courseId: courseId}, course)
+            return updated
+        } catch (error) {
+            return error
+        }
+    }
+
+    /**
+     * 
+     * @param {String} courseId 
+     */
+    static async deleteCourses(courseId){
+        try {
+            const deleted = await Course.deleteOne({courseId: courseId})
+            return deleted
+        } catch (error) {
+            return error
+        }
+    }
+
+    /**
+     * 
      * @static
      * @param {Array} approvedCourses 
      * @param {String} actualCourse 
