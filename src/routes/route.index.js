@@ -7,6 +7,7 @@ const docs = require("./route.documentation");
 const user = require('./route.user')
 const course = require('./route.course')
 const lesson = require('./route.lesson')
+const question = require('./route.question')
 
 
 /**
@@ -170,6 +171,7 @@ router.use((req, res, next) => {
 
 router.use('/courses', course)
 router.use('/lessons', lesson)
+router.use('/questions', question)
 router.use('/test', testRoutes)
 router.use('/docs', docs)
 router.use('/user', user)
